@@ -99,7 +99,10 @@ impl std::ops::Deref for TimeoutMessage {
 }
 
 #[cfg(all(feature = "dbus", unix, not(target_os = "macos")))]
-impl TryFrom<&dbus::arg::messageitem::MessageItem> for TimeoutMessage {
+use dbus::arg::messageitem::MessageItem;
+
+#[cfg(all(feature = "dbus", unix, not(target_os = "macos")))]
+impl TryFrom<&MessageItem> for TimeoutMessage {
     type Error = ();
 
     fn try_from(mi: &dbus::arg::messageitem::MessageItem) -> Result<TimeoutMessage, ()> {
